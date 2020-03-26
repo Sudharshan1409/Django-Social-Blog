@@ -23,9 +23,9 @@ TEMPLATE_DIR = os.path.join(BASE_DIR,'blog/templates/blog')
 SECRET_KEY = 'xbs6znkjqq5two%9)8s=_j5)ff_h2m^s5zw$4%(3fkc9!194nd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://django-social-blog.herokuapp.com/','127.0.0.1',]
 
 
 # Application definition
