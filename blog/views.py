@@ -8,6 +8,9 @@ from django.utils import timezone
 from blog.models import Post,Comment
 from django.contrib.auth.decorators import login_required # for function based views
 from django.contrib.auth.mixins import LoginRequiredMixin # for class based views
+from django.contrib.auth.models import User
+from blog.forms import UserForm
+from django.urls import reverse
 
 # Create your views here.
 
@@ -28,24 +31,34 @@ class PostDetailView(DetailView):
     model = Post
 
 class PostCreateView(LoginRequiredMixin,CreateView):
-    login_url = '/login'
+    login_url = '/accounts/login'
     redirect_field_name = 'blog/post_detail.html'
     form_class = PostForm
     model = Post
 
+class UserCreationView(CreateView):
+    template_name = 'registration/user_form.html'
+    context_object_name = 'form'
+    model = User
+    form_class = UserForm
+
+    def get_success_url(self):
+        return reverse('login')
+
 class PostUpdateView(LoginRequiredMixin,UpdateView):
-    login_url = '/login'
+    login_url = '/accounts/login'
     redirect_field_name = 'blog/post_detail.html'
     form_class = PostForm
     model = Post
 
 class PostDeleteView(LoginRequiredMixin,DeleteView):
     model = Post
+    login_url = '/accounts/login'
     success_url = reverse_lazy('post_draft_list')
     context_object_name = 'form'
 
 class DraftListView(LoginRequiredMixin,ListView):
-    login_url = '/login'
+    login_url = '/accounts/login'
     redirect_field_name = 'blog/post_list.html'
     model = Post
     template_name = 'post_draft_list.html'

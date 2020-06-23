@@ -2,6 +2,10 @@
 {% block body_block %}
     <h1 class="posttitle loader">{{ post.title }}</h1>
     <h1 class="authname loader">-{{ post.author }}</h1>
+    {% if post.image %}
+        <img src="hi.png" alt="">
+        {{post.image.path}}
+    {% endif %}
     {% if post.published_date %}
         <div class="date postdate">
             {{ post.published_date }}
